@@ -49,6 +49,9 @@ export type Point = {
   lon: number
   ele: number
   time: Date
+  hr: number|string
+  cad: number|string
+  atemp: number|string
 }
 
 export type Distance = {
@@ -81,7 +84,7 @@ export type Link = {
   type: string
 }
 
-declare class GpxParser {
+declare class Gpx {
   xmlSource: string
   metadata: MetaData
   waypoints: Waypoint[]
@@ -91,4 +94,4 @@ declare class GpxParser {
   getElementValue(element: Element, needle: string): any
 }
 
-export default GpxParser
+export default Gpx

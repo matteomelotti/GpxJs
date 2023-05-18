@@ -1,43 +1,38 @@
-![GPXParser](https://raw.githubusercontent.com/Luuka/gpx-parser/feature/new-demo/demo/Logo.png)
-
-# GPXParser.js
+# GpxJs
 
 ![](https://github.com/Luuka/gpx-parser/workflows/master-ci/badge.svg) ![](https://github.com/Luuka/gpx-parser/workflows/develop-ci/badge.svg)
 
-*GPXParser.js* is a lightweight JS library wich parse .gpx file and get or compute various datas like
+*GpxJs* is a lightweight JS library wich parse .gpx file and get or compute various datas like
 - GPX metadata
 - total and cumulate distances
-- min, max, average, positive and negative height différence
+- min, max, average, positive and negative height difference
+- Hr, Cadence, Temperature (exported from Garmin devices)
 
-# GPX ? What is this ?
+It is created by <a href="https://github.com/Luuka">Lucas</a>, <a href="https://github.com/Luuka/GPXParser.js">Original Repo</a>
 
-Wikipedia say :
-> GPX, or GPS Exchange Format, is an XML schema designed as a common GPS data format for software applications.
+I added some support to new elements exported from my Garmin Edge 830 device as HR, Cadence and Temperature
 
-gpx files are based on xml with specific tags and attributes
-
-For more information about gpx format see http://www.topografix.com/gpx_manual.asp
 
 # How to do
 
 ### Install from npm
-`npm install --save gpxparser` 
+`npm install --save gpx-js` 
 
 ### Load JavaScript file
 
 From an HTML document :
 ```html
-<script src="./js/GPXParser.js"></script>
+<script src="./js/GpxJs.js"></script>
 ```
 
 From a node.js script :
 ```js
-let gpxParser = require('gpxparser');
+let gpx = require('gpx-js');
 ```
 
 ### Create and parse file
 ```js
-var gpx = new gpxParser(); //Create gpxParser Object
+var gpx = new GpxJs(); //Create GpxJs Object
 gpx.parse("<xml><gpx></gpx></xml>"); //parse gpx file from string data
 ```
 
@@ -47,7 +42,7 @@ gpx.parse("<xml><gpx></gpx></xml>"); //parse gpx file from string data
 var totalDistance = gpx.tracks[0].distance.total;
 ```
 
-### Export gpxParser Objecto to GeoJSON
+### Export GpxJs Object to GeoJSON
 
 ```js
 let geoJSON = gpx.toGeoJSON();
@@ -124,6 +119,9 @@ let geoJSON = gpx.toGeoJSON();
 | lon      | Float  | Point longitude   |
 | ele      | Float  | Point elevation   |
 | time     | Date   | Point time        |
+| hr       | Int    | Point Hear rate   |
+| cad      | Int    | Point Cadence     |
+| atemp    | Int    | Point Temperature |
 
 
 ## Distance object
@@ -146,19 +144,19 @@ let geoJSON = gpx.toGeoJSON();
 ## Author object
 | Property | Type   | Description       |
 | -------- | ------ | ----------------- |
-| name      | String  | Author name   |
-| email      | Email object  | Email address of the author |
+| name      | String  | Author name     |
+| email     | Email object  | Email address of the author |
 | link      | Link object  | Web address |
 
 ## Email object
 | Property | Type   | Description       |
 | -------- | ------ | ----------------- |
-| id      | String  | Email id   |
-| domain | String  | Email domain |
+| id       | String | Email id          |
+| domain   | String | Email domain      |
 
 ## Link  object
 | Property | Type   | Description       |
 | -------- | ------ | ----------------- |
-| href      | String  | Web address |
-| text      | String  | Link text |
-| type      | String  | Link type |
+| href     | String | Web address       |
+| text     | String | Link text         |
+| type     | String | Link type         |
