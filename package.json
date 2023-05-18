@@ -2,8 +2,8 @@
   "name": "gpx-js",
   "version": "1.0.0",
   "description": "GPX file parser",
-  "main": "dist/GpxJs.min.js",
-  "module": "dist/GpxJs.min.js",
+  "main": "dist/index.js",
+  "module": "dist/index.js",
   "types": "dist/index.d.ts",
   "files": [
     "dist"
@@ -17,7 +17,7 @@
     "dev": "jest --watch",
     "test": "jest --no-cache",
     "coverage": "jest --coverage",
-    "release:common": "npm run build && git push --follow-tags origin main && npm publish --access public",
+    "release:common": "npm run build && git push --follow-tags origin master && npm publish --access public",
     "release:patch": "changelog -p && git add CHANGELOG.md && git commit -m 'docs: updated changelog' && npm version patch && npm run release:common",
     "release:minor": "changelog -m && git add CHANGELOG.md && git commit -m 'docs: updated changelog' && npm version minor && npm run release:common",
     "release:major": "changelog -M && git add CHANGELOG.md && git commit -m 'docs: updated changelog' && npm version major && npm run release:common"
