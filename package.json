@@ -11,7 +11,7 @@
   "scripts": {
     "ts-types": "tsc --emitDeclarationOnly",
     "check": "npm run prettier && npm run lint && npm test",
-    "build": "npm run check && rimraf dist && NODE_ENV=production node esbuild.js && npm run ts-types",
+    "build": "npm run check && rimraf dist && NODE_ENV=production node esbuild.js",
     "prettier": "prettier --write ./src",
     "lint": "eslint ./src --ext .js",
     "dev": "jest --watch",
