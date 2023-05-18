@@ -224,8 +224,8 @@ GpxJs.prototype.queryDirectSelector = function (parent, needle) {
   if (elements.length > 1) {
     let directChilds = parent.childNodes;
 
-    for (idx in directChilds) {
-      elem = directChilds[idx];
+    for (let idx in directChilds) {
+      let elem = directChilds[idx];
       if (elem.tagName === needle) {
         finalElem = elem;
       }
@@ -313,11 +313,11 @@ GpxJs.prototype.calcElevation = function (points) {
   var elevation = [];
   var sum = 0;
 
-  for (var i = 0, len = points.length; i < len; i++) {
-    let rawElevation = points[i].ele;
+  for (var k = 0, len = points.length; k < len; k++) {
+    let rawElevation = points[k].ele;
 
     if (rawElevation !== null) {
-      var ele = parseFloat(points[i].ele);
+      var ele = parseFloat(points[k].ele);
       elevation.push(ele);
       sum += ele;
     }
@@ -374,7 +374,7 @@ GpxJs.prototype.toGeoJSON = function () {
     },
   };
 
-  for (idx in this.tracks) {
+  for (let idx in this.tracks) {
     let track = this.tracks[idx];
 
     var feature = {
@@ -394,7 +394,7 @@ GpxJs.prototype.toGeoJSON = function () {
     feature.properties.link = track.link;
     feature.properties.type = track.type;
 
-    for (idx in track.points) {
+    for (let idx in track.points) {
       let pt = track.points[idx];
 
       var geoPt = [];
@@ -408,10 +408,10 @@ GpxJs.prototype.toGeoJSON = function () {
     GeoJSON.features.push(feature);
   }
 
-  for (idx in this.routes) {
+  for (let idx in this.routes) {
     let track = this.routes[idx];
 
-    var feature = {
+    feature = {
       type: "Feature",
       geometry: {
         type: "LineString",
@@ -428,10 +428,10 @@ GpxJs.prototype.toGeoJSON = function () {
     feature.properties.link = track.link;
     feature.properties.type = track.type;
 
-    for (idx in track.points) {
+    for (let idx in track.points) {
       let pt = track.points[idx];
 
-      var geoPt = [];
+      geoPt = [];
       geoPt.push(pt.lon);
       geoPt.push(pt.lat);
       geoPt.push(pt.ele);
@@ -442,10 +442,10 @@ GpxJs.prototype.toGeoJSON = function () {
     GeoJSON.features.push(feature);
   }
 
-  for (idx in this.waypoints) {
+  for (let idx in this.waypoints) {
     let pt = this.waypoints[idx];
 
-    var feature = {
+    feature = {
       type: "Feature",
       geometry: {
         type: "Point",
