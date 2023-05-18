@@ -168,11 +168,11 @@ GpxJs.prototype.parse = function (gpxstring) {
       let time = keepThis.getElementValue(trkpt, "time");
       pt.time = time == null ? null : new Date(time);
 
-      let extensions = trkpt.getElementsByTagName("extensions")
-      if (extensions) {
+      let extensions = trkpt.getElementsByTagName("extensions");
+      if (extensions.length) {
         let extension = extensions[0];
         let trkptExt = extension.getElementsByTagName(
-        "gpxtpx:TrackPointExtension"
+          "gpxtpx:TrackPointExtension"
         )[0];
         let temp = trkptExt.getElementsByTagName("gpxtpx:atemp")[0].innerHTML;
         let hr = trkptExt.getElementsByTagName("gpxtpx:hr")[0].innerHTML;
