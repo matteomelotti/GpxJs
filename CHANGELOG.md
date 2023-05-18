@@ -1,5 +1,11 @@
 ## 5.0.0 (2023-05-18)
 
+##### Documentation Changes
+
+*  updated changelog ([de8905f1](https://github.com/matteomelotti/GpxJs/commit/de8905f1230917dd3f19c5b4141968a4768dc38e))
+
+## 5.0.0 (2023-05-18)
+
 ## 4.0.0 (2023-05-18)
 
 ## 3.0.0 (2023-05-18)
