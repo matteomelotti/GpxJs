@@ -20,7 +20,7 @@ const __PROD__ = process.env.NODE_ENV === 'production';
 // CJS
 esbuild
   .build({
-    entryPoints: ['src/index.ts'],
+    entryPoints: ['src/GpxJs.js'],
     outfile: 'dist/index.js',
     format: 'cjs',
     bundle: true,
