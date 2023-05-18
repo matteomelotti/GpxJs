@@ -3,7 +3,7 @@
  * 
  * @constructor
  */
-let gpxParser = function () {
+let GpxJs = function () {
     this.xmlSource = "";
     this.metadata  = {};
     this.waypoints = [];
@@ -12,13 +12,13 @@ let gpxParser = function () {
 };
 
 /**
- * Parse a gpx formatted string to a GPXParser Object
+ * Parse a gpx formatted string to a GpxJs Object
  * 
  * @param {string} gpxstring - A GPX formatted String
  * 
- * @return {gpxParser} A GPXParser object
+ * @return {GpxJs} A GpxJs object
  */
-gpxParser.prototype.parse = function (gpxstring) {
+GpxJs.prototype.parse = function (gpxstring) {
     let keepThis = this;
 
     let domParser = new window.DOMParser();
@@ -168,6 +168,16 @@ gpxParser.prototype.parse = function (gpxstring) {
             let time = keepThis.getElementValue(trkpt, "time");
             pt.time = time == null ? null : new Date(time);
 
+            let extension = trkpt.getElementsByTagName('extensions')[0];
+            let trkptExt = extension.getElementsByTagName('gpxtpx:TrackPointExtension')[0];
+            let temp = trkptExt.getElementsByTagName('gpxtpx:atemp')[0].innerHTML;
+            let hr = trkptExt.getElementsByTagName('gpxtpx:hr')[0].innerHTML;
+            let cad = trkptExt.getElementsByTagName('gpxtpx:cad')[0].innerHTML;
+
+            pt.atemp = temp;
+            pt.hr = hr;
+            pt.cad = cad;
+
             trackpoints.push(pt);
         }
         track.distance  = keepThis.calculDistance(trackpoints);
@@ -187,7 +197,7 @@ gpxParser.prototype.parse = function (gpxstring) {
  * 
  * @return {} The element value
  */
-gpxParser.prototype.getElementValue = function(parent, needle){
+GpxJs.prototype.getElementValue = function(parent, needle){
     let elem = parent.querySelector(needle);
     if(elem != null){
         return elem.innerHTML != undefined ? elem.innerHTML : elem.childNodes[0].data;
@@ -204,7 +214,7 @@ gpxParser.prototype.getElementValue = function(parent, needle){
  * 
  * @return {} The element value
  */
-gpxParser.prototype.queryDirectSelector = function(parent, needle) {
+GpxJs.prototype.queryDirectSelector = function(parent, needle) {
 
     let elements  = parent.querySelectorAll(needle);
     let finalElem = elements[0];
@@ -230,7 +240,7 @@ gpxParser.prototype.queryDirectSelector = function(parent, needle) {
  * 
  * @return {DistanceObject} An object with total distance and Cumulative distances
  */
-gpxParser.prototype.calculDistance = function(points) {
+GpxJs.prototype.calculDistance = function(points) {
     let distance = {};
     let totalDistance = 0;
     let cumulDistance = [];
@@ -254,7 +264,7 @@ gpxParser.prototype.calculDistance = function(points) {
  * 
  * @returns {float} The distance between the two points
  */
-gpxParser.prototype.calcDistanceBetween = function (wpt1, wpt2) {
+GpxJs.prototype.calcDistanceBetween = function (wpt1, wpt2) {
     let latlng1 = {};
     latlng1.lat = wpt1.lat;
     latlng1.lon = wpt1.lon;
@@ -278,7 +288,7 @@ gpxParser.prototype.calcDistanceBetween = function (wpt1, wpt2) {
  * 
  * @returns {ElevationObject} An object with negative and positive height difference and average, max and min altitude data
  */
-gpxParser.prototype.calcElevation = function (points) {
+GpxJs.prototype.calcElevation = function (points) {
     var dp = 0,
         dm = 0,
         ret = {};
@@ -328,7 +338,7 @@ gpxParser.prototype.calcElevation = function (points) {
  * 
  * @returns {SlopeObject} An array of slopes
  */
-gpxParser.prototype.calculSlope = function(points, cumul) {
+GpxJs.prototype.calculSlope = function(points, cumul) {
     let slopes = [];
 
     for (var i = 0; i < points.length - 1; i++) {
@@ -349,7 +359,7 @@ gpxParser.prototype.calculSlope = function(points, cumul) {
  * 
  * @returns {} a GeoJSON formatted Object
  */
-gpxParser.prototype.toGeoJSON = function () {
+GpxJs.prototype.toGeoJSON = function () {
     var GeoJSON = {
         "type": "FeatureCollection",
         "features": [],
@@ -461,5 +471,5 @@ gpxParser.prototype.toGeoJSON = function () {
 
 if(typeof module !== 'undefined'){
     require('jsdom-global')();
-    module.exports = gpxParser;
+    module.exports = GpxJs;
 }
