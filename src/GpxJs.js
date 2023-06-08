@@ -171,16 +171,23 @@ GpxJs.prototype.parse = function (gpxstring) {
       let extensions = trkpt.getElementsByTagName("extensions");
       if (extensions.length) {
         let extension = extensions[0];
-        let trkptExt = extension.getElementsByTagName(
-          "gpxtpx:TrackPointExtension"
-        )[0];
-        let temp = trkptExt.getElementsByTagName("gpxtpx:atemp")[0].innerHTML;
-        let hr = trkptExt.getElementsByTagName("gpxtpx:hr")[0].innerHTML;
-        let cad = trkptExt.getElementsByTagName("gpxtpx:cad")[0].innerHTML;
-
-        pt.atemp = temp;
-        pt.hr = hr;
-        pt.cad = cad;
+        if (extension) {
+          let trkptExt = extension.getElementsByTagName(
+            "gpxtpx:TrackPointExtension"
+          )[0];
+          if (trkptExt) {
+            let temp = trkptExt.getElementsByTagName("gpxtpx:atemp")[0].innerHTML;
+            let hr = trkptExt.getElementsByTagName("gpxtpx:hr")[0].innerHTML;
+            let cad = trkptExt.getElementsByTagName("gpxtpx:cad")[0].innerHTML;
+            let power =
+              trkptExt.getElementsByTagName("gpxtpx:power")[0].innerHTML;
+  
+            pt.atemp = temp;
+            pt.hr = hr;
+            pt.cad = cad;
+            pt.power = power;
+          }
+        }
       }
 
       trackpoints.push(pt);
